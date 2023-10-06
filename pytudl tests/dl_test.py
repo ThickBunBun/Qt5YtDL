@@ -1,9 +1,7 @@
 import pytest
 import os
 from pytube import YouTube
-from pytu import max_qldl
-from pytu import audio_ytdl
-from pytu import video_ytdl
+import ptdl.pytu
 
 
 @pytest.fixture
@@ -20,17 +18,17 @@ def credentials(tmp_path):
 
 def test_maxdl(credentials):
     download_path, yt, vid_title = credentials
-    max_qldl(yt, download_path, vid_title)
+    ptdl.pytu.max_qldl(yt, download_path, vid_title)
     assert os.path.isfile(os.path.join(download_path, vid_title+'.mp4'))
 
 
 def test_audiodl(credentials):
     download_path, yt, vid_title = credentials
-    audio_ytdl(yt, download_path, vid_title)
+    ptdl.pytu.audio_ytdl(yt, download_path, vid_title)
     assert os.path.isfile(os.path.join(download_path, vid_title+'_audio.mp4'))
 
 
 def test_viddl(credentials):
     download_path, yt, vid_title = credentials
-    video_ytdl(yt, download_path, vid_title, q_tag='137')
+    ptdl.pytu.video_ytdl(yt, download_path, vid_title, q_tag='137')
     assert os.path.isfile(os.path.join(download_path, vid_title+'.mp4'))

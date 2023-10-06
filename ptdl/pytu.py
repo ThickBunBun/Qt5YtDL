@@ -35,7 +35,7 @@ def ffmpeg_merg(download_path, vid_tittle):  # Video and audio merge
     print("Merging...")
     ffmpeg.output(audio_stream, video_stream,
                   os.path.join(download_path, vid_tittle+".mp4"),
-                  codec='copy').run()
+                  codec='copy').run(overwrite_output=True)
 
     os.remove(os.path.join(download_path, f"{vid_tittle}_video.mp4"))
     os.remove(os.path.join(download_path, f"{vid_tittle}_audio.mp4"))
