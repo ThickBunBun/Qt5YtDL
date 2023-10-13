@@ -1,5 +1,13 @@
 import ffmpeg
 import os
+from pytube import YouTube
+
+
+def yt_gen(link):
+    yt = YouTube(link)
+    vid_tittle = yt.title
+    vid_thumbnail = yt.thumbnail_url
+    return yt, vid_tittle, vid_thumbnail
 
 
 # downloading video part for future ffmpeg merg
