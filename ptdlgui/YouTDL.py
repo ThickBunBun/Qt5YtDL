@@ -124,7 +124,7 @@ class Ui_MainWindow(object):
     def download_click(self):
         yt, vid_tittle, vid_thumbnail = yt_gen(
             "https://www.youtube.com/watch?v=-2uyzAqefyE")
-        max_qldl(yt, "/home/iria/Videos/Youtube Videos/", vid_tittle)
+        max_qldl(yt, dl_path, vid_tittle)
 
 
 if __name__ == "__main__":
