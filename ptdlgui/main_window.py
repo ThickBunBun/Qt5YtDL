@@ -98,6 +98,7 @@ class Ui_MainWindow(object):
         self.edit_pushButton.setObjectName("edit_pushButton")
         self.gridLayout_4.addWidget(self.edit_pushButton, 1, 1, 1, 1)
         self.download_pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.download_pushButton.setEnabled(False)
         self.download_pushButton.setMaximumSize(QtCore.QSize(84, 36))
         self.download_pushButton.setObjectName("download_pushButton")
         self.gridLayout_4.addWidget(self.download_pushButton, 1, 2, 1, 1)
