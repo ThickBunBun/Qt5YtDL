@@ -4,7 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import os
 import requests
 from PyQt5.QtGui import QImage, QPixmap
-from ptdl.pytu import yt_gen, max_qldl
+from ptdl.pytu import yt_gen, max_qldl, audio_ytdl
 from pytube import YouTube
 
 
@@ -23,32 +23,38 @@ class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self.ui.download_pushButton.clicked.connect(self.videoDownload)
 
     def infoSet(self):
+        # link and tittle generation
         self.yt = YouTube(self.ui.link_lineEdit.text(),
-                          on_progress_callback=self.progress_func)
+                          on_progress_callback=self.progress)
         self.vid_tittle = self.yt.title
+        # lable setup
         self.vid_thumbnail = self.yt.thumbnail_url
         img_url = self.vid_thumbnail
         img = QImage()
         img.loadFromData(requests.get(img_url).content)
         self.ui.image_place.setPixmap(QPixmap(img))
+        # enabling download after getting the link
         self.ui.download_pushButton.setEnabled(True)
-
-    def percent(self, tem, total):
-        perc = (float(tem) / float(total)) * float(100)
-        return perc
 
     def videoDownload(self):
+        self.ui.download_pushButton.setText("...")
+        self.ui.progressBar.setValue(0)
         self.download_path = self.ui.path_lineEdit.text()
         self.ui.download_pushButton.setEnabled(False)
-        max_qldl(self.yt, self.download_path, self.vid_tittle)
+        if self.ui.max_radioButton.isChecked():
+            max_qldl(self.yt, self.download_path, self.vid_tittle)
+        if self.ui.audio_radioButton.isChecked():
+            audio_ytdl(self.yt, self.download_path, self.vid_tittle)
         self.ui.download_pushButton.setEnabled(True)
+        self.ui.progressBar.setValue(100)
+        self.ui.download_pushButton.setText("Download")
 
-#    def progress_func(self, stream, chunk, bytes_remaining):
-#        size = stream.filesize
-#        p = 0
-#        while p <= 100:
-#            self.ui.progressBar.setValue(int(p))
-#            p = self.percent(bytes_remaining, size)
+    def progress(self, stream, chunk, bytes_remaining):
+        size = stream.filesize
+        p = 0
+        if p <= 99:
+            p = (bytes_remaining/size)*100
+            self.ui.progressBar.setValue(int(p))
 
 
 def setUpWindow():
