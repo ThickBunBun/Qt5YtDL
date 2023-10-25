@@ -3,9 +3,11 @@ from main_window import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 import os
 import requests
+from ptdl.quality_parcer import ql_filter
 from PyQt5.QtGui import QImage, QPixmap
-from ptdl.pytu import yt_gen, max_qldl, audio_ytdl
+from ptdl.pytu import max_qldl, audio_ytdl
 from pytube import YouTube
+from pytube.exceptions import RegexMatchError, VideoUnavailable, VideoPrivate
 
 
 class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -24,17 +26,31 @@ class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def infoSet(self):
         # link and tittle generation
-        self.yt = YouTube(self.ui.link_lineEdit.text(),
-                          on_progress_callback=self.progress)
-        self.vid_tittle = self.yt.title
-        # lable setup
-        self.vid_thumbnail = self.yt.thumbnail_url
-        img_url = self.vid_thumbnail
-        img = QImage()
-        img.loadFromData(requests.get(img_url).content)
-        self.ui.image_place.setPixmap(QPixmap(img))
-        # enabling download after getting the link
-        self.ui.download_pushButton.setEnabled(True)
+        self.ui.enter_pushButton.setText("...")
+        try:
+            self.yt = YouTube(self.ui.link_lineEdit.text(),
+                              on_progress_callback=self.progress)
+            self.vid_tittle = self.yt.title
+            # lable setup
+            self.vid_thumbnail = self.yt.thumbnail_url
+            img_url = self.vid_thumbnail
+            img = QImage()
+            img.loadFromData(requests.get(img_url).content)
+            self.ui.image_place.setPixmap(QPixmap(img))
+            # addint resolutions
+            ql_dict = ql_filter(self.yt)
+            for value in ql_dict.values():
+                self.ui.quality_comboBox.addItem(value)
+            # enabling download after getting the link
+            self.ui.download_pushButton.setEnabled(True)
+        except RegexMatchError:
+            self.ui.link_lineEdit.setText("Invalid link")
+        except VideoUnavailable:
+            self.ui.link_lineEdit.setText("Video is unavailable")
+        except VideoPrivate:
+            self.ui.link_lineEdit.setText("Video is privated")
+
+        self.ui.enter_pushButton.setText("Enter")
 
     def videoDownload(self):
         self.ui.download_pushButton.setText("...")
@@ -43,8 +59,10 @@ class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self.ui.download_pushButton.setEnabled(False)
         if self.ui.max_radioButton.isChecked():
             max_qldl(self.yt, self.download_path, self.vid_tittle)
-        if self.ui.audio_radioButton.isChecked():
+        elif self.ui.audio_radioButton.isChecked():
             audio_ytdl(self.yt, self.download_path, self.vid_tittle)
+        else:
+            pass
         self.ui.download_pushButton.setEnabled(True)
         self.ui.progressBar.setValue(100)
         self.ui.download_pushButton.setText("Download")

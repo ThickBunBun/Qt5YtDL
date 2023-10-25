@@ -2,10 +2,16 @@ setup.py
 ptdl/__init__.py
 ptdl/pytu.py
 ptdl/pytumenu.py
+ptdl/quality_parcer.py
 ptdl.egg-info/PKG-INFO
 ptdl.egg-info/SOURCES.txt
 ptdl.egg-info/dependency_links.txt
 ptdl.egg-info/top_level.txt
+ptdlgui/__init__.py
+ptdlgui/call_ui.py
+ptdlgui/main.py
+ptdlgui/main_window.py
+ptdlgui/test_call.py
 pytudl tests/__init__.py
 pytudl tests/dl_test.py
 pytudl tests/dlerror_test.py
