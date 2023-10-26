@@ -5,7 +5,7 @@ import os
 import requests
 from ptdl.quality_parcer import ql_filter
 from PyQt5.QtGui import QImage, QPixmap
-from ptdl.pytu import max_qldl, audio_ytdl
+from ptdl.pytu import max_qldl, audio_ytdl, video_ytdl
 from pytube import YouTube
 from pytube.exceptions import RegexMatchError, VideoUnavailable, VideoPrivate
 
@@ -38,9 +38,12 @@ class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
             img.loadFromData(requests.get(img_url).content)
             self.ui.image_place.setPixmap(QPixmap(img))
             # addint resolutions
-            ql_dict = ql_filter(self.yt)
-            for value in ql_dict.values():
+            self.ui.quality_comboBox.clear()
+            self.ql_dict = ql_filter(self.yt)
+            for value in self.ql_dict.keys():
                 self.ui.quality_comboBox.addItem(value)
+            # setting slide positioin
+            self.ui.quality_comboBox.setCurrentIndex(len(self.ql_dict)-1)
             # enabling download after getting the link
             self.ui.download_pushButton.setEnabled(True)
         except RegexMatchError:
@@ -61,8 +64,9 @@ class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
             max_qldl(self.yt, self.download_path, self.vid_tittle)
         elif self.ui.audio_radioButton.isChecked():
             audio_ytdl(self.yt, self.download_path, self.vid_tittle)
-        else:
-            pass
+        elif self.ui.select_radioButton.isChecked():
+            video_ytdl(self.yt, self.download_path, self.vid_tittle,
+                       self.ql_dict[self.ui.quality_comboBox.currentText()])
         self.ui.download_pushButton.setEnabled(True)
         self.ui.progressBar.setValue(100)
         self.ui.download_pushButton.setText("Download")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Youtube_downloader.ui'
+# Form implementation generated from reading ui file '/home/iria/Python/qt5python/UIs/Youtube_downloader.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -49,13 +49,19 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
+        self.select_radioButton = QtWidgets.QRadioButton(self.centralwidget)
+        self.select_radioButton.setChecked(True)
+        self.select_radioButton.setObjectName("select_radioButton")
+        self.verticalLayout.addWidget(self.select_radioButton)
         self.max_radioButton = QtWidgets.QRadioButton(self.centralwidget)
         self.max_radioButton.setCheckable(True)
         self.max_radioButton.setChecked(False)
+        self.max_radioButton.setAutoExclusive(True)
         self.max_radioButton.setAutoRepeatDelay(300)
         self.max_radioButton.setObjectName("max_radioButton")
         self.verticalLayout.addWidget(self.max_radioButton)
         self.audio_radioButton = QtWidgets.QRadioButton(self.centralwidget)
+        self.audio_radioButton.setAutoExclusive(True)
         self.audio_radioButton.setObjectName("audio_radioButton")
         self.verticalLayout.addWidget(self.audio_radioButton)
         self.gridLayout_2.addLayout(self.verticalLayout, 1, 2, 2, 1)
@@ -113,6 +119,7 @@ class Ui_MainWindow(object):
         self.lable_Video_link.setText(_translate("MainWindow", "Video Link"))
         self.link_lineEdit.setText(_translate("MainWindow", "https://www.youtube.com"))
         self.enter_pushButton.setText(_translate("MainWindow", "Enter"))
+        self.select_radioButton.setText(_translate("MainWindow", "Select Quality"))
         self.max_radioButton.setText(_translate("MainWindow", "Max Quality"))
         self.max_radioButton.setShortcut(_translate("MainWindow", "Q"))
         self.audio_radioButton.setText(_translate("MainWindow", "Audio Only"))

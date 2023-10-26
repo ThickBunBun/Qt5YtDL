@@ -1,6 +1,7 @@
 import ffmpeg
 import os
 from pytube import YouTube
+from ptdl.quality_parcer import ql_dict
 
 
 def yt_gen(link):
@@ -14,6 +15,8 @@ def yt_gen(link):
 def video_ytdl(yt, download_path, vid_tittle, q_tag,):
 
     # print("Downloading video...")
+    dictionary = ql_dict(yt)
+    vid_tittle += f"_{dictionary[q_tag]}"
     yt.streams.get_by_itag(q_tag).download(
         filename=os.path.join(download_path, f"{vid_tittle}_video.mp4"))
     audio_ytdl(yt, download_path, vid_tittle)
