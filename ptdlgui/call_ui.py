@@ -28,8 +28,9 @@ class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
         # link and tittle generation
         self.ui.enter_pushButton.setText("...")
         try:
-            self.yt = YouTube(self.ui.link_lineEdit.text(),
-                              on_progress_callback=self.progress)
+            self.yt = YouTube(self.ui.link_lineEdit.text(
+            ), use_oauth=True, allow_oauth_cache=True,
+                on_progress_callback=self.progress)
             self.vid_tittle = self.yt.title
             # lable setup
             self.vid_thumbnail = self.yt.thumbnail_url
