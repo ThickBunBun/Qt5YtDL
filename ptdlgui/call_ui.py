@@ -17,12 +17,16 @@ class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self.ui.setupUi(self)
         self.setUpEnterButton()
         self.setUpDownloadButton()
+        self.setUpEditButton()
 
     def setUpEnterButton(self):
         self.ui.enter_pushButton.clicked.connect(self.infoSet)
 
     def setUpDownloadButton(self):
         self.ui.download_pushButton.clicked.connect(self.videoDownload)
+
+    def setUpEditButton(self):
+        self.ui.edit_pushButton.clicked.connect(self.pathEdit)
 
     def infoSet(self):
         # link and tittle generation
@@ -38,7 +42,7 @@ class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
             img = QImage()
             img.loadFromData(requests.get(img_url).content)
             self.ui.image_place.setPixmap(QPixmap(img))
-            # addint resolutions
+            # adding resolutions
             self.ui.quality_comboBox.clear()
             self.ql_dict = ql_filter(self.yt)
             for value in self.ql_dict.keys():
@@ -76,8 +80,14 @@ class CallUI(QtWidgets.QMainWindow, Ui_MainWindow):
         size = stream.filesize
         p = 0
         if p <= 99:
-            p = (bytes_remaining/size)*100
+            p = 99 - (bytes_remaining/size)*100
             self.ui.progressBar.setValue(int(p))
+
+    def pathEdit(self):
+        dialog = QtWidgets.QFileDialog()
+        path = dialog.getExistingDirectory(
+            parent=self, caption="Select a folder", directory=os.getcwd())
+        self.ui.path_lineEdit.setText(path)
 
 
 def setUpWindow():
