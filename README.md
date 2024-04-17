@@ -19,14 +19,28 @@ git clone "https://github.com/ThickBunBun/Qt5YtDL.git"
 When it's done, cd to the repository directory, initiate python's virtual enviroment and install the dependancies.
 ```console
 cd Qt5YtDL
+```
+```console
 python -m venv venv
+```
+```console
+source venv/bin/activate
+```
+```console
 pip install -r requirements.txt 
 ```
 After that you may cd into gui folder and launch the app.
 ```console
 cd ptdlgui
+```
+```console
 python main.py
 ```
+After launching and entering the firts link, it will prompt you to connect it to your YouTube account in the console.
+"Please open https://www.google.com/device and input code XXX-XXX-XXXX
+Press enter when you have completed this step.QCoreApplication::exec: The event loop is already running"
+
+
 ##
 ![photo_2024-04-15_21-05-23](https://github.com/ThickBunBun/Qt5YtDL/assets/81237388/a11d83ca-9ee2-47c1-a69d-b181977614c5)
 ![photo_2024-04-17_15-58-02](https://github.com/ThickBunBun/Qt5YtDL/assets/81237388/eaabbb8e-8e36-4759-a292-b01583a54707)
