@@ -1,5 +1,7 @@
 ![2024-01-31_13-35](https://github.com/ThickBunBun/Qt5YtDL/assets/81237388/ae3f9c8f-0e3d-4510-b93c-96f34c0f3219)
 
+![Static Badge](https://img.shields.io/badge/Qt5-black?logo=Qt)![Static Badge](https://img.shields.io/badge/Python-black?logo=Python)![Static Badge](https://img.shields.io/badge/YouTube-black?logo=Youtube&logoColor=red)
+
 ## About
 
 ## Installation
