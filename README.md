@@ -16,9 +16,10 @@ If you plan to test out the app you'll have to clone the repository first.
 ```console
 git clone "https://github.com/ThickBunBun/Qt5YtDL.git"
 ```
-When it's done, cd to the repository directory and install the dependancies.
+When it's done, cd to the repository directory, initiate python's virtual enviroment and install the dependancies.
 ```console
 cd Qt5YtDL
+python -m venv venv
 pip install -r requirements.txt 
 ```
 After that you may cd into gui folder and launch the app.
