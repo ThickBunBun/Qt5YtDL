@@ -3,7 +3,13 @@
 ![Static Badge](https://img.shields.io/badge/Qt5-black?logo=Qt)![Static Badge](https://img.shields.io/badge/Python-black?logo=Python)![Static Badge](https://img.shields.io/badge/YouTube-black?logo=Youtube&logoColor=red)
 
 ## About
+This is a front end for Pytube python library, written using Qt5 GUI library. 
 
+As of now application has the curren funcitonality:
+- User may see the preview of the link they entered
+- User may pick between different video quality
+- User may enable audio only download
+ 
 ## Installation
 
 ##
